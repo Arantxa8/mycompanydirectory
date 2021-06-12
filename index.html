@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My Company Directory</title>
+    <meta name="author" content="Arantxa" />
+    <meta name="description" content="Password protected company directory" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no"
+    />
+    <link href="favicon.ico" rel="icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <!-- Other CSS -->
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+
+    <!-- Datatables -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/fixedheader/3.1.8/css/fixedHeader.dataTables.min.css"
+    />
+    <!-- Toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css"
+      integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ=="
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!--Loader-->
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navbar">
+      <div
+        class="container d-flex justify-content-between w-100 m-0"
+        id="navContent"
+      >
+        <a class="navbar-brand mr-auto d-flex flex-nowrap" href="">
+          <img
+            src="./images/company-logo.png"
+            alt="Company Directory Logo"
+            height="50px"
+            width="auto"
+            id="logo-img"
+          />
+          <h1>Company Directory</h1>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto d-flex justify-content-between w-auto">
+            <li class="nav-item ml-auto active" id="navEmployeesLinkLi">
+              <a
+                class="nav-link text-light"
+                id="navEmployeesLink"
+                href="#Employees"
+                >Employees</a
+              >
+            </li>
+            <li class="nav-item ml-auto" id="navDeptsLinkLi">
+              <a
+                class="nav-link text-light"
+                id="navDeptsLink"
+                href="#Departments"
+                >Departments</a
+              >
+            </li>
+            <li class="nav-item ml-auto" id="navLocationsLinkLi">
+              <a
+                class="nav-link text-light"
+                id="navLocationsLink"
+                href="#Locations"
+                >Locations</a
+              >
+            </li>
+            <li class="nav-item mx-2 btn-group">
+              <button
+                class="btn btn-outline-light my-2 my-sm-0 dropdown-toggle"
+                type="button"
+                id="customBtn"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fas fa-palette d-inline"></i>
+              </button>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="customBtn"
+              >
+                <a
+                  class="dropdown-item d-flex justify-content-between px-2"
+                  href="#"
+                  >Neutral
+                  <img
+                    src="./images/neutral.jpg"
+                    alt="Neutral theme"
+                    height="30px"
+                    width="auto"
+                    id="neutralImg"
+                /></a>
+                <a
+                  class="dropdown-item d-flex justify-content-between px-2"
+                  href="#"
+                  >Floral
+                  <img
+                    src="./images/Floral.jpg"
+                    alt="Neutral theme"
+                    height="30px"
+                    width="auto"
+                    id="floralImg"
+                /></a>
+                <a
+                  class="dropdown-item d-flex justify-content-between px-2"
+                  href="#"
+                  >Evergreen
+                  <img
+                    src="./images/Evergreen.JPG"
+                    alt="Neutral theme"
+                    height="30px"
+                    width="auto"
+                    id="evergreenImg"
+                /></a>
+                <a
+                  class="dropdown-item d-flex justify-content-between px-2"
+                  href="#"
+                  >Midnight
+                  <img
+                    src="./images/Night time.JPG"
+                    alt="Neutral theme"
+                    height="30px"
+                    width="auto"
+                    id="midnightImg"
+                /></a>
+                <a
+                  class="dropdown-item d-flex justify-content-between px-2"
+                  href="#"
+                  >Calm Sea
+                  <img
+                    src="./images/Calm sea.JPG"
+                    alt="Neutral theme"
+                    height="30px"
+                    width="auto"
+                    id="calmImg"
+                /></a>
+                <a
+                  class="dropdown-item d-flex justify-content-between px-2"
+                  href="#"
+                  >Original
+                  <img
+                    src="./images/original.jpg"
+                    alt="Neutral theme"
+                    height="30px"
+                    width="auto"
+                    id="originalImg"
+                /></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main role="main" class="container-fluid">
+      <div id="employeesAlert"></div>
+      <!-- PAGES -->
+      <!-- EMPLOYEES PAGE -->
+      <div class="tablePage" id="employeesPage">
+        <div class="container-fluid">
+          <table
+            id="employeesTable"
+            class="table table-striped table-bordered display nowrap"
+            cellspacing="0"
+          >
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Job Title</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <!-- mobile view buttons -->
+        <div class="mobile-button-container d-sm-none d-flex flex-column">
+          <button
+            class="btn btn-success mobile-filter-button employeesPageFilterBtn"
+            id="employeesPageMobileFilterBtn"
+            data-toggle="modal"
+            data-target="#filterEmployeesModal"
+          >
+            <i class="fas fa-filter"></i>
+          </button>
+          <button
+            class="btn btn-danger mobile-reset-button employeessPageResetBtn"
+            id="employeesResetSmBtn"
+          >
+            <i class="fas fa-sync"></i>
+          </button>
+          <button
+            class="btn btn-success mobile-new-button employeesPageCreateBtn"
+            id="employeesPageMobileCreateBtn"
+            data-toggle="modal"
+            data-target="#addEmployeesModal"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <!-- add new employee Modal -->
+        <div
+          class="modal fade"
+          id="addEmployeesModal"
+          tabindex="-1"
+          aria-labelledby="addEmployeesModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content animate-bottom shadow-lg">
+              <div class="modal-header">
+                <h4 class="modal-title w-100 text-center newEmployee">
+                  New Employee
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <form id="addNewEmployeeForm">
+                <div id="addModalBody" class="modal-body">
+                  <div class="form-group">
+                    <label>First Name</label>
+                    <input
+                      type="text"
+                      class="form-control addE"
+                      maxlength="50"
+                      name="firstName"
+                      id="addFirstName"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control addE"
+                      maxlength="50"
+                      name="lastName"
+                      id="addLastName"
+                      required
+                    />
+                  </div>
+                  <div class="form-group ndropdown">
+                    <label>Department</label>
+                    <div class="depDropdown" id="departmentAddDropdown"></div>
+                  </div>
+                  <div class="form-group ndropdown">
+                    <label>Location</label>
+                    <div id="locationAddDropdown"></div>
+                  </div>
+                  <div class="form-group">
+                    <label>Job Title</label>
+                    <input
+                      type="text"
+                      class="form-control addE"
+                      maxlength="50"
+                      name="jobTitle"
+                      id="addJobTitle"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      class="form-control addE"
+                      maxlength="100"
+                      name="email"
+                      id="addEmail"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <input
+                    type="button"
+                    class="btn btn-danger"
+                    data-dismiss="modal"
+                    value="Cancel"
+                  />
+                  <input type="submit" class="btn btn-success" id="submitNew" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- filter employees Modal -->
+        <div
+          class="modal fade"
+          id="filterEmployeesModal"
+          tabindex="-1"
+          aria-labelledby="filterEmployeesModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content animate-bottom shadow-lg">
+              <div class="modal-header">
+                <h4 class="modal-title w-100 text-center filterEmployees">
+                  Filter Employees
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group fdropdown">
+                  <label>Job Title</label>
+                  <div class="ddmjob"></div>
+                </div>
+                <div class="form-group fdropdown">
+                  <label>Department</label>
+                  <div class="ddmdepartment"></div>
+                </div>
+                <div class="form-group fdropdown">
+                  <label>Location</label>
+                  <div class="ddmlocation"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="employeesFilterResetBtn"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Filter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT employee Modal -->
+      <div
+        class="modal fade"
+        id="editEmployeeModal"
+        tabindex="-1"
+        aria-labelledby="editEmployeeModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content animate-bottom shadow-lg">
+            <div class="modal-header">
+              <h4 class="modal-title w-100 text-center editEmployee">
+                Edit Employee
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <form id="editEmployeeForm">
+              <div id="editModalBody" class="modal-body">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    class="form-control editE"
+                    maxlength="50"
+                    name="firstNameE"
+                    id="editFirstName"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control editE"
+                    maxlength="50"
+                    name="lastNameE"
+                    required
+                    id="editLastName"
+                  />
+                </div>
+                <div class="form-group ndropdown">
+                  <label>Department</label>
+                  <div class="depDropdown" id="departmentEditDropdown"></div>
+                </div>
+                <div class="form-group ndropdown">
+                  <label>Location</label>
+                  <div id="locationEditDropdown"></div>
+                </div>
+                <div class="form-group">
+                  <label>Job Title</label>
+                  <input
+                    type="text"
+                    class="form-control editE"
+                    maxlength="50"
+                    name="jobTitleE"
+                    required
+                    id="editJobTitle"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    class="form-control editE"
+                    maxlength="100"
+                    name="emailE"
+                    required
+                    id="editEmail"
+                  />
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <input
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  value="Cancel"
+                />
+                <input type="submit" class="btn btn-success" id="submitEdit" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEPARTMENT PAGE -->
+      <div class="tablePage" id="departmentsPage">
+        <div class="container-fluid">
+          <table
+            id="departmentsTable"
+            class="table table-striped table-bordered display nowrap"
+          >
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <!-- mobile view buttons -->
+        <div class="mobile-button-container d-sm-none d-flex flex-column">
+          <button
+            class="
+              btn btn-success
+              mobile-filter-button
+              departmentsPageFilterBtn
+            "
+            id="departmentsPageMobileFilterBtn"
+            data-toggle="modal"
+            data-target="#filterDepartmentsModal"
+          >
+            <i class="fas fa-filter"></i>
+          </button>
+          <button
+            class="btn btn-danger mobile-reset-button departmentsPageResetBtn"
+            id="departmentsResetSmBtn"
+          >
+            <i class="fas fa-sync"></i>
+          </button>
+          <button
+            class="btn btn-success mobile-new-button departmentsPageCreateBtn"
+            id="departmentsPageMobileCreateBtn"
+            data-toggle="modal"
+            data-target="#addDepartmentsModal"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <!-- add new department Modal -->
+        <div
+          class="modal fade"
+          id="addDepartmentsModal"
+          tabindex="-1"
+          aria-labelledby="addDepartmentsModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content animate-bottom shadow-lg">
+              <div class="modal-header">
+                <h4 class="modal-title w-100 text-center newDepartment">
+                  New Department
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form id="addDepartmentForm">
+                <div id="addDModalBody" class="modal-body">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      class="form-control addD"
+                      maxlength="50"
+                      name="dName"
+                      required
+                      id="dName"
+                    />
+                  </div>
+                  <div class="form-group ndropdown">
+                    <label>Location</label>
+                    <div class="locDropdown"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <input
+                    type="button"
+                    class="btn btn-danger"
+                    data-dismiss="modal"
+                    value="Cancel"
+                  />
+                  <input
+                    type="submit"
+                    class="btn btn-success"
+                    id="submitNewD"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- filter Department Modal -->
+        <div
+          class="modal fade"
+          id="filterDepartmentsModal"
+          tabindex="-1"
+          aria-labelledby="filterDepartmentsModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content animate-bottom shadow-lg">
+              <div class="modal-header">
+                <h4 class="modal-title w-100 text-center filterDepartments">
+                  Filter Departments
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group fdropdown">
+                  <label>Department</label>
+                  <div class="ddmdepartment"></div>
+                </div>
+                <div class="form-group fdropdown">
+                  <label>Location</label>
+                  <div class="ddmlocation"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="departmentsFilterResetBtn"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Filter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT department Modal-->
+      
+      <div
+        class="modal fade"
+        id="editDepartmentModal"
+        tabindex="-1"
+        aria-labelledby="editDepartmentModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content animate-bottom shadow-lg">
+            <div class="modal-header">
+              <h4 class="modal-title w-100 text-center editDepartment">
+                Edit Department
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form id="editDepartmentForm">
+              <div id="editDModalBody" class="modal-body">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    class="form-control editD"
+                    maxlength="50"
+                    name="firstName"
+                    required
+                    id="editDName"
+                  />
+                </div>
+                <div class="form-group fdropdown">
+                  <label>Location</label>
+                  <div class="ddmdepartment" id="editLoc"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  value="Cancel"
+                />
+                <input type="submit" class="btn btn-success" id="submitEditD" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOCATION PAGE -->
+      <div class="tablePage" id="locationsPage">
+        <div class="container-fluid">
+          <table
+            id="locationsTable"
+            class="table table-striped table-bordered display nowrap"
+          >
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <!-- mobile view buttons -->
+        <div class="mobile-button-container d-sm-none d-flex flex-column">
+          <button
+            class="btn btn-success mobile-filter-button locationsPageFilterBtn"
+            id="locationsPageMobileFilterBtn"
+            data-toggle="modal"
+            data-target="#filterLocationsModal"
+          >
+            <i class="fas fa-filter"></i>
+          </button>
+          <button
+            class="btn btn-danger mobile-reset-button locationsPageResetBtn"
+            id="locationsResetSmBtn"
+          >
+            <i class="fas fa-sync"></i>
+          </button>
+          <button
+            class="btn btn-success mobile-new-button locationsPageCreateBtn"
+            id="locationsPageMobileCreateBtn"
+            data-toggle="modal"
+            data-target="#addLocationsModal"
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <!-- add new locations Modal -->
+        <div
+          class="modal fade"
+          id="addLocationsModal"
+          tabindex="-1"
+          aria-labelledby="addLocationsModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content animate-bottom shadow-lg">
+              <div class="modal-header">
+                <h4 class="modal-title w-100 text-center newLocation">
+                  New Location
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form id="addLocationForm">
+                <div id="addLModalBody" class="modal-body">
+                  <div class="form-group">
+                    <label>Location</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      maxlength="50"
+                      name="lName"
+                      required
+                      id="lName"
+                    />
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <input
+                    type="button"
+                    class="btn btn-danger"
+                    data-dismiss="modal"
+                    value="Cancel"
+                  />
+                  <input
+                    type="submit"
+                    class="btn btn-success"
+                    id="submitNewL"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- filter Location Modal -->
+        <div
+          class="modal fade"
+          id="filterLocationsModal"
+          tabindex="-1"
+          aria-labelledby="filterLocationsModal"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content animate-bottom shadow-lg">
+              <div class="modal-header">
+                <h4 class="modal-title w-100 text-center filterLocations">
+                  Filter Locations
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group fdropdown">
+                  <label>Location</label>
+                  <div class="ddmlocation"></div>
+                </div>
+                <div class="form-group fdropdown">
+                  <label>Department</label>
+                  <div class="ddmdepartment"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  id="locationsFilterResetBtn"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Filter
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT locations Modal -->
+      <div
+        class="modal fade"
+        id="editLocationModal"
+        tabindex="-1"
+        aria-labelledby="editLocationModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content animate-bottom shadow-lg">
+            <div class="modal-header">
+              <h4 class="modal-title w-100 text-center editLocation">
+                Edit Location
+              </h4>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form id="editLocationForm">
+              <div id="editLModalBody" class="modal-body">
+                <div class="form-group">
+                  <label>Location</label>
+                  <input
+                    type="text"
+                    class="form-control editL"
+                    maxlength="50"
+                    name="firstName"
+                    required
+                    id="editLocName"
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  value="Cancel"
+                />
+                <input type="submit" class="btn btn-success" id="submitEditL" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Delete Employee Modal HTML -->
+      <div id="deleteEmployeeModal" class="modal fade">
+        <!-- HTML INJECTED HERE  -->
+      </div>
+
+      <!-- Delete Department Modal HTML -->
+      <div id="deleteDepartmentModal" class="modal fade">
+        <!-- HTML INJECTED HERE  -->
+      </div>
+
+      <!-- Delete Location Modal HTML -->
+      <div id="deleteLocationModal" class="modal fade">
+        <!-- HTML INJECTED HERE  -->
+      </div>
+    </main>
+
+    <!-- Bootstrap -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Datatables -->
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/fixedheader/3.1.8/js/dataTables.fixedHeader.min.js"
+    ></script>
+    <!-- toastr -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"
+      integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ=="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- My scripts -->
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
