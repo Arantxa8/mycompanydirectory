@@ -41,7 +41,7 @@ $('#addEmployeesModal').on('show.bs.modal', function(){
 
   tableDepartments.columns().search("").draw();
   tableEmployees.columns().search("").draw();
-  getDropdown(0,'#departmentAddDropdown.depDropdown', 'Departments');
+  getDropdown(1,'#departmentAddDropdown.depDropdown', 'Departments');
   updateLocation('#locationAddDropdown','#departmentAddDropdown>select');
 });
 $('#addEmployeesModal').on('hidden.bs.modal', function(){
@@ -70,7 +70,7 @@ $('#addNewEmployeeForm').on('submit', function(e) {
         success: function(response) {
           //console.log('success');   
           if(response.status.code == '200'){
-            console.log(response);
+            //console.log(response);
           tableEmployees.ajax.reload();
           $('#addEmployeesModal').modal("hide");
           $('#employeesAlert').html(`
@@ -105,9 +105,11 @@ $('#addNewEmployeeForm').on('submit', function(e) {
 let editEmployeeId;
 $(document).ajaxStop(function(){
 $('#employeesTable tbody').on('click', '.btn.btn-warning.small-edit-button', function(){
+  tableEmployees.ajax.reload(function(){
+  
   tableDepartments.columns().search("").draw();
   tableEmployees.columns().search("").draw();
-  getDropdown(0,'#departmentEditDropdown', 'Departments');
+  getDropdown(1,'#departmentEditDropdown', 'Departments');
   var data = tableEmployees.row($(this).parents('tr')).data() || tableEmployees.row($(this).parents('li').attr('data-dt-row')).data();
   editEmployeeId = data.id;
   $('#editFirstName').val(data.firstName);
@@ -119,6 +121,7 @@ $('#employeesTable tbody').on('click', '.btn.btn-warning.small-edit-button', fun
   $('#editJobTitle').val(data.jobTitle);
   $('#editEmail').val(data.email);
   $('#editEmployeeModal').modal("show");
+  })
 });
 //delete
 $('#employeesTable tbody').on('click', '.btn.btn-danger.small-delete-button.ml-2', function(){
@@ -175,7 +178,7 @@ $('#editEmployeeForm').on('submit',function(e) {
         success: function(response) {
           //console.log('success'); 
           if(response.status.code == '200'){  
-          console.log(response);
+          //console.log(response);
           tableEmployees.ajax.reload();
           $('#editEmployeeModal').modal("hide");
           $('#employeesAlert').html(`
@@ -206,7 +209,7 @@ $('#editEmployeeForm').on('submit',function(e) {
 // DELETE Employee call
 function deleteEmployee(deleteId){
   $.ajax({
-    url: './php/deleteEmployees.php', 
+    url: './php/deleteEmployees.php',
     type: 'POST',
     dataType: 'json',
     async: false,
@@ -215,8 +218,8 @@ function deleteEmployee(deleteId){
       
   },
     success: function(response) {
-      console.log('success');   
-      console.log(response);
+      //console.log('success');   
+      //console.log(response);
       tableEmployees.ajax.reload();
       
       
@@ -274,10 +277,10 @@ $('#addDepartmentForm').on('submit',function(e) {
         
     },
       success: function(data) {
-        console.log(data);
+        //console.log(data);
         if(data.status.code == '200'){
        // console.log('success');   
-       console.log(data);
+       //console.log(data);
        $('#addDepartmentsModal').modal("hide");
        tableDepartments.ajax.reload();
        $('#employeesAlert').html(`
@@ -301,7 +304,9 @@ $('#addDepartmentForm').on('submit',function(e) {
        setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);
        }
       }, 
-      error: function(result){console.log(result)}
+      error: function(result){
+        //console.log(result);
+      }
   })
   
  
@@ -312,6 +317,7 @@ $('#addDepartmentForm').on('submit',function(e) {
 let editDepartmentId;
 $(document).ajaxStop(function(){
   $('#departmentsTable tbody').on('click', '.btn.btn-warning.small-edit-button', function(){
+    tableDepartments.ajax.reload(function(){
     tableLocations.columns().search("").draw();
    getDropdown(0,'.locDropdown', 'Locations');
     var data = tableDepartments.row($(this).parents('tr')).data() || tableDepartments.row($(this).parents('li').attr('data-dt-row')).data();
@@ -320,12 +326,13 @@ $(document).ajaxStop(function(){
     getDropdown(0,'#editLoc', 'Locations');
     $('#editLoc>select').val(data.locationName);
     $('#editDepartmentModal').modal("show");
+  })
   });
   //delete
   $('#departmentsTable tbody').on('click', '.btn.btn-danger.small-delete-button.ml-2', function(){
     var data = tableDepartments.row($(this).parents('tr')).data() || tableDepartments.row($(this).parents('li').attr('data-dt-row')).data();
     let deleteId = data.id;
-    console.log(data);
+    //console.log(data);
     $("#deleteDepartmentModal").html(`
       <div class="modal-dialog">
       <div class="modal-content">
@@ -371,7 +378,7 @@ $(document).ajaxStop(function(){
           success: function(response) {
             if(response.status.code == '200'){
             //console.log('success');   
-            console.log(response);
+            //console.log(response);
             $('#editDepartmentModal').modal("hide");
             tableDepartments.ajax.reload();
             $('#employeesAlert').html(`
@@ -412,11 +419,14 @@ function deleteDepartment(deleteId){
       
   },
     success: function(response) {
-      console.log('success');   
+      //console.log('success');   
       console.log(response);
       tableDepartments.ajax.reload();
       
       
+    },
+    error: function(result){
+      console.log(result);
     }
 })
 $('#deleteDepartmentModal').modal("hide");
@@ -450,10 +460,10 @@ $('#addLocationForm').on('submit',function(e) {
           
       },
         success: function(data) {
-          console.log('success'); 
+          //console.log('success'); 
           if(data.status.code == '200'){
             
-          console.log(data);
+          //console.log(data);
           $('#addLocationsModal').modal("hide");
           tableLocations.ajax.reload(); 
           $('#employeesAlert').html(`
@@ -489,11 +499,13 @@ let editLocationId;
 $(document).ajaxStop(function(){
   
   $('#locationsTable tbody').on('click', '.btn.btn-warning.small-edit-button', function(){
+    tableLocations.ajax.reload(function(){
     tableLocations.columns().search("").draw();
     var data = tableLocations.row($(this).parents('tr')).data() || tableLocations.row($(this).parents('li').attr('data-dt-row')).data();
     editLocationId = data.id;
     $('#editLocName').val(data.name);
     $('#editLocationModal').modal("show");
+  })
   });
   //delete
 $('#locationsTable tbody').on('click', '.btn.btn-danger.small-delete-button.ml-2', function(){
@@ -542,8 +554,8 @@ $("#deleteLocationModal").modal('show');
         },
           success: function(response) {
             if(response.status.code == '200'){
-            console.log('success');   
-            console.log(response);
+            //console.log('success');   
+            //console.log(response);
             $('#editLocationModal').modal("hide");
             tableLocations.ajax.reload();
             $('#employeesAlert').html(`
@@ -582,8 +594,8 @@ $("#deleteLocationModal").modal('show');
         
     },
       success: function(response) {
-        console.log('success');   
-        console.log(response);
+        // console.log('success');   
+        // console.log(response);
         tableLocations.ajax.reload();
         
         

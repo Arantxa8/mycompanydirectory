@@ -1,14 +1,7 @@
 //REUSABLE FUNCTIONS AND DATA
 // Columns Settings
 const employeesColumns = [
-  { "data": "id" },
-  { "data": "lastName" },
-  { "data": "firstName"},
-  { "data": "jobTitle" },
-  { "data": "email" },
-  { "data": "department" },
-  { "data": "location" },
-  {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex justify-content-end"><button
+  {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex"><button
   type="button"
   class="btn btn-warning small-edit-button"
 ><i class="fas fa-edit"></i>
@@ -17,12 +10,16 @@ const employeesColumns = [
   class="btn btn-danger small-delete-button ml-2"
 ><i class="fas fa-trash"></i>
 </button>
-</div>`}
+</div>`},
+  { "data": "lastName", "className": "wrapok" },
+  { "data": "firstName", "className": "wrapok"},
+  { "data": "jobTitle" },
+  { "data": "email" },
+  { "data": "department" },
+  {"data": null, "orderable": false, "className": "dtr-control", "targets": -1, "defaultContent": "<p></p>"}
 ];
 const departmentsColumns = [
-  { "data": "name" },
-  { "data": "locationName" },
-  {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex justify-content-end">
+  {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex">
   <button
     type="button"
     class="btn btn-warning small-edit-button"
@@ -36,12 +33,16 @@ const departmentsColumns = [
   >
     <i class="fas fa-trash"></i>
   </button>
-</div>`}
+</div>`},
+  { "data": "name" , "className": "wrapok"},
+  { "data": "locationName" },
+  {"data": null, "orderable": false, "className": "dtr-control", "targets": -1, "defaultContent": "<p></p>"}
+  
 ];
 
 const locationsColumns = [
   { "data": "name" },
-  {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex justify-content-end">
+  {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex">
   <button
     type="button"
     class="btn btn-warning small-edit-button"
@@ -64,7 +65,12 @@ function tablesSettings(id, title, columns){
   table = $(id).DataTable( {
       ajax: {url: `./php/get${title}.php`, async: true},
       "dom": 'f<"buttons">rtip',
-      responsive: true,
+      responsive: {
+        details: {
+            type: 'column',
+            target: -1
+        }
+    },
       columns: columns,
       scrollCollapse: true,
       fixedHeader: {header: true,
@@ -76,35 +82,6 @@ function tablesSettings(id, title, columns){
     $(`#${title.toLowerCase()}Table_wrapper>div.buttons`).html(`<div class="form-group row d-flex justify-content-between pr-2 page-title-container">
           
     <div id="tableHead${title}" class="tableHeadTitle"><h5 >${title}</h5></div>
-    <div class="d-none d-sm-block col-2 desktop-button-container">
-    <div class="ml-auto d-flex justify-content-end">
-      <button
-        type="button"
-        class="btn btn-success small-new-button"
-        id="${title.toLowerCase()}PageCreateBtn"
-        data-toggle="modal"
-        data-target="#add${title}Modal"
-      >
-        <i class="fas fa-plus"></i>
-      </button>
-      <button
-        class="btn btn-danger small-reset-button ml-2"
-        id="${title.toLowerCase()}ResetBtn"
-      >
-        <i class="fas fa-sync"></i>
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary small-filter-button ml-2"
-        id="${title.toLowerCase()}FilterBtn"
-        data-toggle="modal"
-        data-target="#filter${title}Modal"
-        
-      >
-        <i class="fas fa-filter"></i>
-      </button>
-    </div>
-    </div>
     
     </div>`);
   }
@@ -155,7 +132,7 @@ function getFilter(col, container, page){
   //Get dropdowns only
 function getDropdown(col, container, page){
     eval('var table = table'+page);
-    var select = $(`<select class="form-control dropdown" maxlength="50" name="" required><option value="">Select ${$(container).siblings('label').html()}</option></select>`)
+    var select = $(`<select class="form-control dropdown" maxlength="50" name="" required></select>`)
     .appendTo( $(container).empty() )
     .on( 'change', function () {
       table.column( col )

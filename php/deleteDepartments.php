@@ -1,8 +1,7 @@
 <?php
 
 	// example use from browser
-	// use insertDepartment.php first to create new dummy record and then specify it's id in the command below
-	// http://localhost/companydirectory/libs/php/deleteDepartmentByID.php?id= <id>
+	
 
 	// remove next two lines for production
 	
@@ -35,16 +34,35 @@
 
 	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
 
+	$countRequest = 'SELECT COUNT(id) as pc FROM personnel WHERE departmentID = ' . $_REQUEST['id'];
+
+	$count = $conn->query($countRequest);
+
+	$sum = 0;
+	while($row = $count->fetch_array()) {
+        $sum = $row['pc'];
+        };
+
+	if($sum==0){
+
 	$query = 'DELETE FROM department WHERE id = ' . $_REQUEST['id'];
 
 	$result = $conn->query($query);
-	
-	if (!$result) {
 
+	$output['status']['code'] = "200";
+	$output['status']['name'] = "ok";
+	$output['status']['description'] = "success";
+	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
+	$output['data'] = [$result];
+	
+	mysqli_close($conn);
+
+	echo json_encode($output); 
+	} else {
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
-		$output['data'] = [];
+		$output['data'] = "there are records with this department";
 
 		mysqli_close($conn);
 
@@ -54,14 +72,6 @@
 
 	}
 
-	$output['status']['code'] = "200";
-	$output['status']['name'] = "ok";
-	$output['status']['description'] = "success";
-	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data'] = [];
 	
-	mysqli_close($conn);
-
-	echo json_encode($output); 
 
 ?>

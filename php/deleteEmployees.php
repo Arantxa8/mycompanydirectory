@@ -33,6 +33,7 @@
 
 	}	
 
+
 	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
 
 	$query = 'DELETE FROM personnel WHERE id = ' . $_REQUEST['id'];

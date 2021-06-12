@@ -257,7 +257,7 @@ main {
   padding-bottom: 60px;
   padding-top: 2%;
 }
-table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
+/* table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   top: 50%;
   left: 3px;
   height: 1.2em;
@@ -286,6 +286,13 @@ table.dataTable.dtr-inline.collapsed
 }
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control {
   padding-left: 36px;
+} */
+td.wrapok{
+white-space: pre-wrap !important;
+}
+
+#employeesTable{
+  width: 0px !important;
 }
 
 /* Mobile Settings */
