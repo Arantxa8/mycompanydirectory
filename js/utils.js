@@ -3,7 +3,7 @@
 const employeesColumns = [
   {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex"><button
   type="button"
-  class="btn btn-warning small-edit-button"
+  class="btn btn-warning small-edit-button employees"
 ><i class="fas fa-edit"></i>
 </button><button
   type="button"
@@ -22,7 +22,7 @@ const departmentsColumns = [
   {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex">
   <button
     type="button"
-    class="btn btn-warning small-edit-button"
+    class="btn btn-warning small-edit-button departments"
   >
     <i class="fas fa-edit"></i>
   </button>
@@ -45,7 +45,7 @@ const locationsColumns = [
   {"data": null, 'orderable': false, "defaultContent": `<div class="ml-auto d-flex">
   <button
     type="button"
-    class="btn btn-warning small-edit-button"
+    class="btn btn-warning small-edit-button locations"
 
   >
     <i class="fas fa-edit"></i>
@@ -84,7 +84,8 @@ function tablesSettings(id, title, columns){
     <div id="tableHead${title}" class="tableHeadTitle"><h5 >${title}</h5></div>
     
     </div>`);
-  }
+  };
+
   
 //Show page and update nav
   

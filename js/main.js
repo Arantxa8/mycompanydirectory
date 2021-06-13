@@ -103,26 +103,28 @@ $('#addNewEmployeeForm').on('submit', function(e) {
 });
 //Edit and delete Employees button --- Dropdowns and autofilled
 let editEmployeeId;
+
 $(document).ajaxStop(function(){
-$('#employeesTable tbody').on('click', '.btn.btn-warning.small-edit-button', function(){
-  tableEmployees.ajax.reload(function(){
   
+  $('.btn.btn-warning.small-edit-button.employees').click(function(e){
+    e.preventDefault();
+    let thisRow = tableEmployees.row($(this).parents('tr'));
+  let thatRow = tableEmployees.row($(this).parents('li').attr('data-dt-row'));
   tableDepartments.columns().search("").draw();
   tableEmployees.columns().search("").draw();
   getDropdown(1,'#departmentEditDropdown', 'Departments');
-  var data = tableEmployees.row($(this).parents('tr')).data() || tableEmployees.row($(this).parents('li').attr('data-dt-row')).data();
-  editEmployeeId = data.id;
-  $('#editFirstName').val(data.firstName);
-  $('#editLastName').val(data.lastName);
-  $('#departmentEditDropdown>select').val(data.department);
-  updateLocation('#locationEditDropdown','#departmentEditDropdown>select');
-  $('#departmentEditDropdown>select').trigger('change');
-  $('#locationEditDropdown>select').val(data.locationID);
-  $('#editJobTitle').val(data.jobTitle);
-  $('#editEmail').val(data.email);
-  $('#editEmployeeModal').modal("show");
-  })
-});
+    tableEmployees.ajax.reload(function(){
+      var data = thisRow.data() || thatRow.data();
+      editEmployeeId = data.id;
+      $('#editFirstName').val(data.firstName);
+      $('#editLastName').val(data.lastName);
+      $('#departmentEditDropdown>select').val(data.department);
+      $('#departmentEditDropdown>select').trigger('change');
+      $('#editJobTitle').val(data.jobTitle);
+      $('#editEmail').val(data.email);
+      $('#editEmployeeModal').modal("show");
+    })
+  });
 //delete
 $('#employeesTable tbody').on('click', '.btn.btn-danger.small-delete-button.ml-2', function(){
   var data = tableEmployees.row($(this).parents('tr')).data() || tableEmployees.row($(this).parents('li').attr('data-dt-row')).data();
@@ -218,9 +220,30 @@ function deleteEmployee(deleteId){
       
   },
     success: function(response) {
-      //console.log('success');   
-      //console.log(response);
-      tableEmployees.ajax.reload();
+      if(response.status.code == '200'){  
+        //console.log(response);
+        tableEmployees.ajax.reload();
+        $('#editEmployeeModal').modal("hide");
+        $('#employeesAlert').html(`
+        <div class="alert text-center alert-dismissible alert-success fade show" role="alert">
+        <strong>✓</strong> Employee deleted succesfully. 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        `);
+        setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);} else{
+          $('#addEmployeesModal').modal("hide");
+        $('#employeesAlert').html(`
+        <div class="alert text-center alert-dismissible alert-danger fade show" role="alert">
+        <strong>✘</strong> Something went wrong, please try again. 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        `);
+        setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);
+        }
       
       
     }
@@ -316,17 +339,21 @@ $('#addDepartmentForm').on('submit',function(e) {
 //Edit and delete departments buttons // Dropdown and autofilled
 let editDepartmentId;
 $(document).ajaxStop(function(){
-  $('#departmentsTable tbody').on('click', '.btn.btn-warning.small-edit-button', function(){
-    tableDepartments.ajax.reload(function(){
+  $('.btn.btn-warning.small-edit-button.departments').click(function(e){
+    e.preventDefault();
+    let thisRow = tableDepartments.row($(this).parents('tr'));
+    let thatRow = tableDepartments.row($(this).parents('li').attr('data-dt-row'));
+    console.log(thisRow.data());
     tableLocations.columns().search("").draw();
-   getDropdown(0,'.locDropdown', 'Locations');
-    var data = tableDepartments.row($(this).parents('tr')).data() || tableDepartments.row($(this).parents('li').attr('data-dt-row')).data();
-    editDepartmentId = data.id;
-    $('#editDName').val(data.name);
-    getDropdown(0,'#editLoc', 'Locations');
-    $('#editLoc>select').val(data.locationName);
-    $('#editDepartmentModal').modal("show");
-  })
+    getDropdown(0,'.locDropdown', 'Locations');
+    tableDepartments.ajax.reload(function(){
+      var data = thisRow.data() || thatRow.data();
+      editDepartmentId = data.id;
+      $('#editDName').val(data.name);
+      getDropdown(0,'#editLoc', 'Locations');
+      $('#editLoc>select').val(data.locationName);
+      $('#editDepartmentModal').modal("show");
+    });
   });
   //delete
   $('#departmentsTable tbody').on('click', '.btn.btn-danger.small-delete-button.ml-2', function(){
@@ -419,15 +446,36 @@ function deleteDepartment(deleteId){
       
   },
     success: function(response) {
-      //console.log('success');   
-      console.log(response);
-      tableDepartments.ajax.reload();
+      // console.log('success');   
+      //console.log(response);
+      if(response.status.code == '200'){  
+        //console.log(response);
+        tableEmployees.ajax.reload();
+        $('#editEmployeeModal').modal("hide");
+        $('#employeesAlert').html(`
+        <div class="alert text-center alert-dismissible alert-success fade show" role="alert">
+        <strong>✓</strong> Department deleted succesfully. 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        `);
+        setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);} else{
+          $('#addEmployeesModal').modal("hide");
+        $('#employeesAlert').html(`
+        <div class="alert text-center alert-dismissible alert-danger fade show" role="alert">
+        <strong>✘</strong> This department <b>cannot</b> be deleted. There are ${response.data} employees in this department.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        `);
+        setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);
+        }
       
       
-    },
-    error: function(result){
-      console.log(result);
     }
+    
 })
 $('#deleteDepartmentModal').modal("hide");
 };
@@ -498,14 +546,17 @@ $('#addLocationForm').on('submit',function(e) {
 let editLocationId;
 $(document).ajaxStop(function(){
   
-  $('#locationsTable tbody').on('click', '.btn.btn-warning.small-edit-button', function(){
-    tableLocations.ajax.reload(function(){
+  $('.btn.btn-warning.small-edit-button.locations').click(function(e){
+    e.preventDefault();
+    let thisRow = tableLocations.row($(this).parents('tr'));
+    let thatRow = tableLocations.row($(this).parents('li').attr('data-dt-row'));
     tableLocations.columns().search("").draw();
-    var data = tableLocations.row($(this).parents('tr')).data() || tableLocations.row($(this).parents('li').attr('data-dt-row')).data();
+    tableLocations.ajax.reload(function(){
+    var data = thisRow.data() || thatRow.data();
     editLocationId = data.id;
     $('#editLocName').val(data.name);
     $('#editLocationModal').modal("show");
-  })
+    });
   });
   //delete
 $('#locationsTable tbody').on('click', '.btn.btn-danger.small-delete-button.ml-2', function(){
@@ -596,7 +647,30 @@ $("#deleteLocationModal").modal('show');
       success: function(response) {
         // console.log('success');   
         // console.log(response);
-        tableLocations.ajax.reload();
+        if(response.status.code == '200'){  
+          //console.log(response);
+          tableEmployees.ajax.reload();
+          $('#editEmployeeModal').modal("hide");
+          $('#employeesAlert').html(`
+          <div class="alert text-center alert-dismissible alert-success fade show" role="alert">
+          <strong>✓</strong> Location deleted succesfully. 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          `);
+          setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);} else{
+            $('#addEmployeesModal').modal("hide");
+          $('#employeesAlert').html(`
+          <div class="alert text-center alert-dismissible alert-danger fade show" role="alert">
+          <strong>✘</strong> This location <b>cannot</b> be deleted. There are ${response.data} departments at this location.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          `);
+          setTimeout(function(){$('.alert.text-center').alert('close')}, 4000);
+          }
         
         
       }
@@ -609,3 +683,4 @@ $(function() {
 	  $(this).remove(); 
 	});
   });
+

@@ -35,17 +35,35 @@
 
 	// $_REQUEST used for development / debugging. Remember to cange to $_POST for production
 
-    $query = 'DELETE FROM location WHERE id = ' ."'".$_REQUEST['id']."'" ;
+    $countRequest = 'SELECT COUNT(id) as dp FROM department WHERE locationID = ' . $_REQUEST['id'];
+
+	$count = $conn->query($countRequest);
+
+	$sum = 0;
+	while($row = $count->fetch_array()) {
+        $sum = $row['dp'];
+        };
+
+	if($sum==0){
+	$query = 'DELETE FROM location WHERE id = ' ."'".$_REQUEST['id']."'" ;
 
 
 	$result = $conn->query($query);
+
+	$output['status']['code'] = "200";
+	$output['status']['name'] = "ok";
+	$output['status']['description'] = "success";
+	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
+	$output['data'] = $result;
 	
-	if (!$result) {
+	mysqli_close($conn);
+
+	echo json_encode($output); } else {
 
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
-		$output['data'] = [];
+		$output['data'] = $sum;
 
 		mysqli_close($conn);
 
@@ -55,14 +73,6 @@
 
 	}
 
-	$output['status']['code'] = "200";
-	$output['status']['name'] = "ok";
-	$output['status']['description'] = "success";
-	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data'] = [];
 	
-	mysqli_close($conn);
-
-	echo json_encode($output); 
 
 ?>

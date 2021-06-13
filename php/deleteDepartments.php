@@ -53,7 +53,7 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = (microtime(true) - $executionStartTime) / 1000 . " ms";
-	$output['data'] = [$result];
+	$output['data'] = $result;
 	
 	mysqli_close($conn);
 
@@ -62,7 +62,7 @@
 		$output['status']['code'] = "400";
 		$output['status']['name'] = "executed";
 		$output['status']['description'] = "query failed";	
-		$output['data'] = "there are records with this department";
+		$output['data'] = $sum;
 
 		mysqli_close($conn);
 

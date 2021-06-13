@@ -1,5 +1,5 @@
 <?php
-	
+	session_write_close();
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
 
@@ -63,5 +63,7 @@
 	mysqli_close($conn);
 
 	echo json_encode($output); 
+
+	
 
 ?>
