@@ -1,9 +1,12 @@
 // loader
+
 $(function() { 
-	$('#preloader').fadeOut('slow', function() { 
+	$('.loader').fadeOut('slow', function() { 
 	  $(this).remove(); 
 	});
   });
+
+
 
 //REUSABLE FUNCTIONS AND DATA
 // Columns Settings
