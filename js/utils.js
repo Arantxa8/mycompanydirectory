@@ -1,10 +1,9 @@
 // loader
 
-$(function() { 
-	$('.loader').fadeOut('slow', function() { 
-	  $(this).remove(); 
-	});
-  });
+$(document).ready(function(){
+  $('#preloader').fadeOut('slow', function() { 
+	  $(this).remove(); });
+ });
 
 
 
