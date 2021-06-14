@@ -1,8 +1,9 @@
 // loader
 
 $(document).ready(function(){
+  setTimeout(function(){
   $('#preloader').fadeOut('slow', function() { 
-	  $(this).remove(); });
+	  $(this).remove(); })}, 50)
  });
 
 
