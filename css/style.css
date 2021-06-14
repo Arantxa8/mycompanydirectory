@@ -1,7 +1,7 @@
 /*Preloader*/
 
 #preloader {
-  background-color: #222;
+  background-color: rgb(12, 12, 12);
   position: fixed;
   top: 0;
   left: 0;
@@ -257,12 +257,13 @@ main {
   padding-bottom: 60px;
   padding-top: 2%;
 }
-/* table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
+table.dataTable.dtr-column > tbody > tr > td.dtr-control:before {
   top: 50%;
-  left: 3px;
+  left: 41%;
   height: 1.2em;
   width: 1.2em;
-  margin-top: -9px;
+  margin-top: -0.5em;
+  margin-bottom: -0.5em;
   display: block;
   position: absolute;
   color: white;
@@ -274,19 +275,18 @@ main {
   text-indent: 0 !important;
   font-family: "Courier New", Courier, monospace;
   line-height: 1.3em;
-  content: "▼";
+  font-weight: bold;
+  content: "+";
   background-color: rgb(75, 72, 72);
 }
-table.dataTable.dtr-inline.collapsed
+table.dataTable.dtr-column
   > tbody
   > tr.parent
   > td.dtr-control:before {
-  content: "►";
-  background-color: rgb(29, 60, 143);
+    content: "-";
+    background-color: #c59797;
 }
-table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control {
-  padding-left: 36px;
-} */
+
 td.wrapok{
 white-space: pre-wrap !important;
 }

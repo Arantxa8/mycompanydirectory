@@ -64,7 +64,7 @@ $('#addNewEmployeeForm').on('submit', function(e) {
           'jobTitle': $('#addJobTitle').val(),
           'email': $('#addEmail').val().toLowerCase(),
           'department': $('#departmentAddDropdown>select').val(),
-          'location': $('#locationAddDropdown>select').val()
+          
           
       },
         success: function(response) {
@@ -677,10 +677,5 @@ $("#deleteLocationModal").modal('show');
   })
   $('#deleteLocationModal').modal("hide");
   };
-// loader
-$(function() { 
-	$('#preloader').fadeOut('slow', function() { 
-	  $(this).remove(); 
-	});
-  });
+
 
