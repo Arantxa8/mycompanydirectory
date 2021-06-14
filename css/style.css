@@ -79,6 +79,21 @@ html {
 }
 body {
   height: 100vh;
+  overflow: hidden;
+}
+div.dataTables_scroll > div.dataTables_scrollHead > div{
+  margin: 0 auto;
+}
+@media only screen and (max-width: 600px) {
+  
+  .dataTables_scrollBody{
+    padding-bottom: 12% !important;
+    border-bottom: 0px !important;}
+}
+
+.dataTables_scrollBody{
+  padding-bottom: 5%;
+  border-bottom: 0px !important;
 }
 /* Main page */
 main {
@@ -292,6 +307,17 @@ white-space: pre-wrap !important;
 
 #employeesTable{
   width: 0px !important;
+  margin: 0 auto;
+}
+
+#departmentsTable{
+  width: 0px !important;
+  margin: 0 auto;
+}
+
+#locationsTable{
+  width: 0px !important;
+  margin: 0 auto;
 }
 
 /* Mobile Settings */

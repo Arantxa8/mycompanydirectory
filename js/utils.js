@@ -3,7 +3,7 @@
 $(document).ready(function(){
   setTimeout(function(){
   $('#preloader').fadeOut('slow', function() { 
-	  $(this).remove(); })}, 50)
+	  $(this).remove(); })}, 10)
  });
 
 
@@ -71,7 +71,8 @@ const locationsColumns = [
 ];
 //Data tables configuration function
 
-function tablesSettings(id, title, columns){
+
+function tablesSettings(id, title, columns, screen){
   table = $(id).DataTable( {
       ajax: {url: `./php/get${title}.php`, async: true},
       "dom": 'f<"buttons">rtip',
@@ -82,9 +83,10 @@ function tablesSettings(id, title, columns){
         }
     },
       columns: columns,
+      scrollY: `calc(100vh - 252px)`,
       scrollCollapse: true,
-      fixedHeader: {header: true,
-      headerOffset: $('#navbar').outerHeight()},
+      // fixedHeader: {header: true,
+      // headerOffset: $('#navbar').outerHeight()},
       paging: false
     } );
     eval('table'+title+"= table");
@@ -95,6 +97,8 @@ function tablesSettings(id, title, columns){
     
     </div>`);
   };
+
+  
 
   
 //Show page and update nav

@@ -8,7 +8,7 @@ $(document).ready(function(){
   tablesSettings('#locationsTable', 'Locations', locationsColumns);
   showPage('#employeesPage','#navEmployeesLinkLi');
   $('#employeesResetBtn').click(function(){tableEmployees.columns().search("").draw(); tableEmployees.search("").draw()});
-  tableEmployees.fixedHeader.enable();
+  //tableEmployees.fixedHeader.enable();
 }
   );
 
@@ -19,7 +19,7 @@ $('#navEmployeesLink').click(function(){
   $(window).trigger('resize');
   tableEmployees.ajax.reload();
   $('#navbarCollapse').collapse('hide');
-  tableEmployees.fixedHeader.enable();
+  //tableEmployees.fixedHeader.enable();
  });
 
 //Filters
@@ -27,7 +27,6 @@ $('#filterEmployeesModal').on('show.bs.modal', function(){
   tableEmployees.columns().search("").draw();
   getFilter(5,'.ddmdepartment', 'Employees');
   getFilter(3,'.ddmjob', 'Employees');
-  getFilter(6,'.ddmlocation', 'Employees');
 });
 //Filter reset buttons
 
@@ -254,18 +253,18 @@ $('#deleteEmployeeModal').modal("hide");
 //DEPARTMENT PAGE
 $('#navDeptsLink').click(function(){
   tableDepartments.columns().search("").draw();
-  $(window).trigger('resize');
+  //$(window).trigger('resize');
   tableDepartments.ajax.reload();
   showPage('#departmentsPage','#navDeptsLinkLi');
   $('#navbarCollapse').collapse('hide');
   $('#departmentsResetBtn').click(function(){tableDepartments.columns().search("").draw();tableDepartments.search("").draw()});
-  tableDepartments.fixedHeader.enable();
+  //tableDepartments.fixedHeader.enable();
  });
 // Filters
 $('#filterDepartmentsModal').on('show.bs.modal', function(){
   tableDepartments.columns().search("").draw();
-  getFilter(0,'.ddmdepartment', 'Departments');
-  getFilter(1,'.ddmlocation', 'Departments');
+  getFilter(1,'.ddmdepartment', 'Departments');
+  getFilter(2,'.ddmlocation', 'Departments');
 });
 //Filter reset buttons
 
@@ -490,7 +489,7 @@ $('#navLocationsLink').click(function(){
  });
  $('#addLocationsModal').on('hidden.bs.modal', function(){
   $('.addL').val("");
-  tableLocations.fixedHeader.enable();
+  //tableLocations.fixedHeader.enable();
 });
 
 
